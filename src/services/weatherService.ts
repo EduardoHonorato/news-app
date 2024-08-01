@@ -1,26 +1,26 @@
 import axios from 'axios';
 
-const API_KEY = 'yZOVGZFufdvMgVtmGXHkW1ssXTtV7awZ';
-const BASE_URL = 'http://dataservice.accuweather.com';
+const API_KEY = '601bff46a9b13bc176905bf3293ace21';
+const BASE_URL = 'https://api.openweathermap.org/data/2.5';
 
 const weatherService = {
-  async getCityKey(cityName: string) {
-    const response = await axios.get(`${BASE_URL}/locations/v1/search`, {
-      params: {
-        apikey: API_KEY,
-        q: cityName
-      }
-    });
-    return response.data[0].Key;
+  async getWeatherByCoordinates(lat: number, lon: number) {
+    try {
+      const response = await axios.get(`${BASE_URL}/weather`, {
+        params: {
+          lat,
+          lon,
+          appid: API_KEY,
+          units: 'metric',
+          lang: 'pt_br'
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching weather data:', error);
+      throw error;
+    }
   },
-  async getWeather(cityKey: string) {
-    const response = await axios.get(`${BASE_URL}/forecasts/v1/daily/1day/${cityKey}`, {
-      params: {
-        apikey: API_KEY
-      }
-    });
-    return response.data;
-  }
 };
 
 export default weatherService;

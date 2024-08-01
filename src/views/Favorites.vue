@@ -2,14 +2,28 @@
     <div>
       <Header />
       <div class="container mx-auto p-4">
-        <h1 v-if="favorites.length === 0" class="text-2xl font-bold text-center my-20">Não há nenhuma notícia favorita ainda!</h1>
-        <ul v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <li v-for="article in favorites" :key="article.url" class="bg-white p-4 rounded shadow">
-            <img :src="article.urlToImage || 'https://via.placeholder.com/150'" alt="Article Image" class="w-full h-48 object-cover rounded mb-4">
-            <h2 class="text-xl font-bold mb-2">{{ article.title }}</h2>
-            <p>{{ article.description }}</p>
-            <button @click="removeFavorite(article)" class="mt-4 px-4 py-2 bg-red-500 text-white rounded">Remover Favorito</button>
-          </li>
+        <h1 v-if="favorites.length === 0" class="text-2xl font-bold text-center my-20 mt-[15em]">Não há nenhuma notícia favorita ainda!</h1>
+        <ul v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-[15em]">
+
+          <li v-for="article in favorites" :key="article.url" @click="selectArticle(article)" class="cursor-pointer">
+    <div class="card-container bg-white p-4 rounded shadow">
+      <img
+        :src="article?.image || 'https://picsum.photos/200/300'"
+        :alt="article?.title"
+        :title="article?.title"
+        class="w-full h-48 object-cover rounded mb-4"
+      />
+      <h3 class="text-lg font-bold title" :title="article?.title">
+        {{ article?.title ?? "Notícia sem título" }}
+      </h3>
+      <hr class="my-5" />
+      <span class="description" :title="article?.title">
+        {{ article?.description ?? "Sem descrição disponível." }}
+      </span><br>
+      <button @click="removeFavorite(article)" class="mt-4 px-4 py-2 bg-red-500 text-white rounded">Remover Favorito</button>
+
+    </div>
+  </li>
         </ul>
       </div>
       <Footer />

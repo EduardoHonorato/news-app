@@ -4,10 +4,9 @@
     <div class="bg-black p-4 flex justify-between items-center h-24">
       <div class="flex space-x-8 overflow-hidden whitespace-nowrap">
         <marquee behavior="scroll" direction="left" class="text-lg hidden md:flex">
-          <span>A surprising way to think about slavery </span>
-          <span>The lawyer who said no </span>
-          <span>NYC attorney: "We run the country"</span>
+          <span>NeoNews, a notícia de verdade você encontra aqui!</span>
         </marquee>
+       
       </div>
       <div class="flex space-x-8 items-center mr-[3em] lg:mr-[12em]">
         <hr class="border-gray-600 h-6 hidden md:block">
@@ -16,11 +15,11 @@
           <span class="lg:text-[30px] text-[15px] text-zinc-400 font-bold md:inline">SIGA-NOS</span>
         </a>
         <hr class="border-gray-600 h-6 hidden md:block">
-        <a href="#" class="hover:text-gray-400 lg:text-[30px] text-[15px]"><i class="fab fa-facebook-f text-zinc-400"></i></a>
+        <a href="https://www.facebook.com/neoway.nw/" title="Curta nossa página no Facebook" class="hover:text-gray-400 lg:text-[30px] text-[15px]"><i class="fab fa-facebook-f text-zinc-400"></i></a>
         <hr class="border-gray-600 h-6 hidden md:block">
-        <a href="#" class="hover:text-gray-400 lg:text-[30px] text-[15px]"><i class="fab fa-twitter text-zinc-400"></i></a>
+        <a href="https://x.com/neoway_oficial" title="Siga-nos no X" class="hover:text-gray-400 lg:text-[30px] text-[15px]"><i class="fab fa-x-twitter text-zinc-400"></i></a>
         <hr class="border-gray-600 h-6 hidden md:block">
-        <a href="#" class="hover:text-gray-400 lg:text-[30px] text-[15px]"><i class="fab fa-instagram text-zinc-400"></i></a>
+        <a href="https://www.instagram.com/neowaybrasil" title="Siga-nos no Instagram" class="hover:text-gray-400 lg:text-[30px] text-[15px]"><i class="fab fa-instagram text-zinc-400"></i></a>
         <hr class="border-gray-600 h-6 hidden md:block">
         <a href="#" class="hover:text-gray-400 lg:text-[30px] text-[15px]"><i class="fab fa-tiktok text-zinc-400"></i></a>
       </div>

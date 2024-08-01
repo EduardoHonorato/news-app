@@ -2,28 +2,42 @@
   <div class="bg-white p-4 rounded shadow">
     <div class="flex justify-between items-center mb-4">
       <h2 class="text-xl font-bold">Previsão do Tempo</h2>
-      <img src="https://s3.glbimg.com/v1/AUTH_c631e406debd4c4fac98a09d48dc17d1/bastian-post/prod/g1/651203d3-cbbf-47e5-bbcd-678d2451ead7/img/post-previsao-do-tempo/climatempo-logo.svg" alt="Climatempo Logo" class="h-6">
+      <img
+        src="https://s3.glbimg.com/v1/AUTH_c631e406debd4c4fac98a09d48dc17d1/bastian-post/prod/g1/651203d3-cbbf-47e5-bbcd-678d2451ead7/img/post-previsao-do-tempo/climatempo-logo.svg"
+        alt="Climatempo Logo"
+        class="h-6"
+      />
     </div>
-    <div v-if="weatherData">
-      <h3 class="text-lg font-bold">{{ cityName }} - SP</h3>
+    <hr />
+    <div v-if="weatherData" class="mt-5">
+      <h3 class="text-lg font-bold">{{ weatherData.name }}</h3>
       <p>Probabilidade de chuva: {{ rainProbability }}%</p>
       <div class="flex justify-around items-center my-4">
         <div class="text-center">
-          <img :src="dayIconUrl" alt="Weather Icon" class="mx-auto">
+          <img :src="morningIconUrl" alt="Morning Weather Icon" class="mx-auto" />
           <p>manhã</p>
         </div>
         <div class="text-center">
-          <img :src="nightIconUrl" alt="Weather Icon" class="mx-auto">
+          <img :src="afternoonIconUrl" alt="Afternoon Weather Icon" class="mx-auto" />
+          <p>tarde</p>
+        </div>
+        <div class="text-center">
+          <img :src="nightIconUrl" alt="Night Weather Icon" class="mx-auto" />
           <p>noite</p>
         </div>
         <div class="text-center">
-          <p class="text-xl">{{ maxTemperature }}° <span class="text-sm">max</span></p>
-          <p class="text-xl">{{ minTemperature }}° <span class="text-sm">min</span></p>
+          <p class="text-xl">
+            {{ Math.round(weatherData.main.temp_max) }}° <span class="text-sm">max</span>
+          </p>
+          <p class="text-xl">
+            {{ Math.round(weatherData.main.temp_min) }}° <span class="text-sm">min</span>
+          </p>
         </div>
       </div>
-      <div class="text-center">
-        <button class="text-red-600 font-bold">Veja a previsão do Climatempo <span class="ml-2">→</span></button>
-      </div>
+    
+    </div>
+    <div v-else>
+      <p>Carregando dados do tempo...</p>
     </div>
   </div>
 </template>
@@ -33,70 +47,56 @@ import { ref, onMounted } from 'vue';
 import weatherService from '../services/weatherService';
 
 interface WeatherData {
-  Headline: {
-    Text: string;
-    MobileLink: string;
+  name: string;
+  main: {
+    temp: number;
+    temp_min: number;
+    temp_max: number;
   };
-  DailyForecasts: {
-    Date: string;
-    Temperature: {
-      Minimum: {
-        Value: number;
-        Unit: string;
-      };
-      Maximum: {
-        Value: number;
-        Unit: string;
-      };
-    };
-    Day: {
-      Icon: number;
-      IconPhrase: string;
-      RainProbability: number;
-    };
-    Night: {
-      Icon: number;
-      IconPhrase: string;
-      RainProbability: number;
-    };
+  weather: {
+    icon: string;
+    description: string;
   }[];
 }
 
 const weatherData = ref<WeatherData | null>(null);
-const cityName = ref<string>('São Paulo');
-const maxTemperature = ref<number>(0);
-const minTemperature = ref<number>(0);
 const rainProbability = ref<number>(0);
-const dayIconUrl = ref<string>('');
+const morningIconUrl = ref<string>('');
+const afternoonIconUrl = ref<string>('');
 const nightIconUrl = ref<string>('');
 
-const fetchWeather = async () => {
+const fetchWeather = async (lat: number, lon: number) => {
   try {
-    const cityKey = await weatherService.getCityKey(cityName.value);
-    const data = await weatherService.getWeather(cityKey);
-
-    maxTemperature.value = convertToCelsius(data.DailyForecasts[0].Temperature.Maximum.Value);
-    minTemperature.value = convertToCelsius(data.DailyForecasts[0].Temperature.Minimum.Value);
-    rainProbability.value = 18;
-
-    dayIconUrl.value = getIconUrl(data.DailyForecasts[0].Day.Icon);
-    nightIconUrl.value = getIconUrl(data.DailyForecasts[0].Night.Icon);
+    const data = await weatherService.getWeatherByCoordinates(lat, lon);
 
     weatherData.value = data;
+    
+    morningIconUrl.value = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+    afternoonIconUrl.value = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+    nightIconUrl.value = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+
+    rainProbability.value = data.rain ? (data.rain['1h'] || data.rain['3h']) * 10 : 0;
   } catch (error) {
     console.error('Erro ao buscar dados do tempo:', error);
   }
 };
 
-const convertToCelsius = (fahrenheit: number) => {
-  return Math.round((fahrenheit - 32) * 5 / 9);
+const getLocation = () => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        fetchWeather(position.coords.latitude, position.coords.longitude);
+      },
+      (error) => {
+        console.error('Erro ao obter localização:', error);
+      }
+    );
+  } else {
+    console.error('Geolocation is not supported by this browser.');
+  }
 };
 
-const getIconUrl = (iconNumber: number) => {
-  return `https://developer.accuweather.com/sites/default/files/${iconNumber < 10 ? '0' + iconNumber : iconNumber}-s.png`;
-};
-
-onMounted(fetchWeather);
+onMounted(getLocation);
 </script>
 
 <style scoped>

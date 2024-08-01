@@ -4,7 +4,7 @@
       <div class="container mx-auto flex mt-4">
         <div class="w-full p-4">
           <ArticleDetail :article="article" />
-          <button @click="addFavorite" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded">Add to Favorites</button>
+          <button @click="addFavorite" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded">Favoritar</button>
         </div>
       </div>
       <Footer />

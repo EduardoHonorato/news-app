@@ -53,9 +53,23 @@ import { ref, onMounted } from 'vue';
 
 const mainArticle = ref([
   {
-    image: 'https://s2-home-globo.glbimg.com/wHXS60K9tv3Mk50u1ITFOKTHBdw=/0x0:638x359/fit-in/515x290/middle/smart/filters:strip_icc():strip_exif()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2024/U/F/rNuUH8SWmmryKvoCqBXQ/thumbnail-image001-3-.jpg', // Substitua com a URL da imagem da notícia
+    image: 'https://s2-home-globo.glbimg.com/wHXS60K9tv3Mk50u1ITFOKTHBdw=/0x0:638x359/fit-in/515x290/middle/smart/filters:strip_icc():strip_exif()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2024/U/F/rNuUH8SWmmryKvoCqBXQ/thumbnail-image001-3-.jpg',
     category: 'MUNDO',
     title: 'Líder supremo do Irã ordena ataque direto a Israel, diz jornal',
+    author: 'Eduardo Honorato',
+    publishedAt: '6 horas atrás'
+  },
+  {
+    image: 'https://s2-home-globo.glbimg.com/j0eW_PAp4Tcd0Wmqi1s4ZcU-AfY=/0x266:4160x2606/fit-in/515x290/middle/smart/filters:strip_icc():strip_exif()/i.s3.glbimg.com/v1/AUTH_bc8228b6673f488aa253bbcb03c80ec5/internal_photos/bs/2024/L/9/LbtSX7Q5uA1CWzeBM0BQ/whatsapp-image-2024-08-01-at-15.40.54.jpeg',
+    category: 'ESPORTE',
+    title: 'É prata! Rebeca Andrade faz história na final individual geral da ginástica',
+    author: 'Eduardo Honorato',
+    publishedAt: '6 horas atrás'
+  },
+  {
+    image: 'https://s2-home-globo.glbimg.com/rcxMCQTanPcqJJAjrtOlxFr54QE=/495x122:4270x2245/fit-in/515x290/middle/smart/filters:strip_icc():strip_exif()/i.s3.glbimg.com/v1/AUTH_bc8228b6673f488aa253bbcb03c80ec5/internal_photos/bs/2024/j/v/i8PYGlS0iaDUAV1NrEow/2024-08-01t160554z-2142493895-up1ek8118psqz-rtrmadp-3-olympics-2024-judo.jpg',
+    category: 'ESPORTE',
+    title: 'Judoca perde o ouro com punição, se revolta e deixa o tatame aos berros',
     author: 'Eduardo Honorato',
     publishedAt: '6 horas atrás'
   }
