@@ -28,10 +28,7 @@
     article.value = data.articles[0];
   };
   
-  const addFavorite = () => {
-    // Lógica para adicionar aos favoritos
-  };
-  
+    
   onMounted(fetchArticle);
   </script>
   

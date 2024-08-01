@@ -17,7 +17,5 @@
   import { ref } from 'vue';
   
   const favorites = ref([]);
-  
-  // Suponha que a lógica para gerenciar os favoritos esteja aqui
-  </script>
+    </script>
   

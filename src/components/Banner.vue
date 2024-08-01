@@ -1,7 +1,7 @@
 <template>
-  <div class="grid grid-cols-1 lg:grid-cols-2">
+  <div class="lg:grid inline-flex grid-cols-1 lg:grid-cols-2">
     <!-- Banner Principal -->
-    <div class="relative col-span-2 lg:col-span-1 h-[375px] lg:h-[778px] my-[13.4em]">
+    <div class="relative col-span-2 lg:col-span-1 lg:h-[778px] my-[13.4em]">
       <div
         v-for="(article, index) in mainArticle"
         :key="index"
@@ -27,11 +27,11 @@
       </div>
     </div>
     <!-- Banners Secundários -->
-    <div class="block grid-cols-1 mt-[14em]">
+    <div class="block lg:grid-cols-1 mt-[14em]">
       <div
         v-for="(article, index) in secondaryArticles"
         :key="index"
-        class="relative h-[192px] lg:h-[384px]"
+        class="relative lg:h-[384px] h-[265px]"
       >
         <img :src="article.image" alt="Article Image" class="object-cover w-full h-full filter brightness-50">
         <div class="absolute inset-0 bg-gradient-to-t from-blue-900 to-transparent p-6 flex flex-col justify-end">
@@ -91,7 +91,7 @@ const prevSlide = () => {
 onMounted(() => {
   setInterval(() => {
     nextSlide();
-  }, 5000); // Alterne os slides a cada 5 segundos
+  }, 5000);
 });
 </script>
 

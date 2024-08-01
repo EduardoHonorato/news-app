@@ -12,7 +12,7 @@
   </template>
   
   <script setup lang="ts">
-  import { defineProps, defineEmits } from 'vue';
+  import { defineEmits } from 'vue';
   
   interface Article {
     url: string;
@@ -21,7 +21,6 @@
     content: string;
   }
   
-  const props = defineProps<{ articles: Article[] }>();
   const emit = defineEmits(['selectArticle']);
   
   const selectArticle = (article: Article) => {

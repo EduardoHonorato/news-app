@@ -66,10 +66,3 @@
     </footer>
   </template>
   
-  <script setup>
-  </script>
-  
-  <style scoped>
-  /* Adicione qualquer estilo específico aqui, se necessário */
-  </style>
-  

@@ -4,13 +4,13 @@ import Favorites from '../views/Favorites.vue';
 
 const routes = [
   { path: '/', component: Home },
-  { path: '/mundo', component: Home }, // Exemplo de reutilização de componente
-  { path: '/politica', component: Home }, // Exemplo de reutilização de componente
-  { path: '/negocios', component: Home }, // Exemplo de reutilização de componente
-  { path: '/tecnologia', component: Home }, // Exemplo de reutilização de componente
-  { path: '/esportes', component: Home }, // Exemplo de reutilização de componente
-  { path: '/entretenimento', component: Home }, // Exemplo de reutilização de componente
-  { path: '/saude', component: Home }, // Exemplo de reutilização de componente
+  { path: '/mundo', component: Home },
+  { path: '/politica', component: Home },
+  { path: '/negocios', component: Home },
+  { path: '/tecnologia', component: Home },
+  { path: '/esportes', component: Home },
+  { path: '/entretenimento', component: Home },
+  { path: '/saude', component: Home },
   { path: '/favorites', component: Favorites }
 ];
 
