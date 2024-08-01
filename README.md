@@ -26,22 +26,22 @@ Siga os passos abaixo para rodar o projeto localmente:
 
 1. **Clone o Repositório**
    ```bash
-   git clone https://github.com/seu-usuario/neownews.git
+   git clone https://github.com/EduardoHonorato/news-app.git
    ```
    
 2. **Instale as Dependências**
    ```bash
    cd neownews
-   npm install
+   npm install || yarn install
    ```
    
 3. **Execute o Projeto**
    ```bash
-   npm run dev
+   npm run dev || yarn dev
    ```
 
 4. **Acesse no Navegador**
-   Abra [http://localhost:3000](http://localhost:3000) para visualizar o projeto.
+   Abra [http://localhost:3000](http://localhost:3000) para visualizar o projeto ou [http://localhost:5173](http://localhost:5173).
 
 ## 🔧 Tecnologias Utilizadas
 
@@ -49,26 +49,46 @@ Siga os passos abaixo para rodar o projeto localmente:
 - **Vue Router**: Sistema de roteamento oficial para Vue.js.
 - **Tailwind CSS**: Um framework CSS para estilização rápida e responsiva.
 - **Font Awesome**: Conjunto de ícones para uma web mais bonita.
+- **Axios**: Cliente HTTP para consumo de APIs de forma simples e eficiente.
+- **v-libras**: Ferramenta para tornar o site acessível a usuários que utilizam Língua Brasileira de Sinais (Libras).
+- **SEO**: Implementação de metodologias de SEO para garantir acessibilidade e melhor posicionamento em motores de busca.
+
+## 🛠 Metodologias de Componentização e Services
+
+### Componentização
+
+A **componentização** é uma prática fundamental no desenvolvimento de aplicações modernas, especialmente com frameworks como Vue.js. Consiste em dividir a interface do usuário em partes menores e reutilizáveis chamadas componentes. Cada componente encapsula sua própria lógica, estrutura e estilo, o que traz diversos benefícios:
+
+- **Reutilização**: Permite reutilizar componentes em diferentes partes da aplicação, reduzindo a duplicação de código.
+- **Manutenção**: Facilita a manutenção do código, já que cada componente é responsável por uma parte específica da funcionalidade.
+- **Testabilidade**: Componentes isolados são mais fáceis de testar devido à sua interface clara e dependências bem definidas.
+- **Escalabilidade**: A divisão em componentes torna mais fácil a expansão e adição de novas funcionalidades sem impactar outras partes da aplicação.
+
+### Services
+
+**Services** são utilizados para centralizar a lógica de negócios e operações assíncronas, como chamadas a APIs. Isso ajuda a manter os componentes focados na apresentação e interação com o usuário. Benefícios dos services incluem:
+
+- **Organização**: Mantém a lógica de negócios separada da lógica de apresentação, facilitando a organização do código.
+- **Reutilização de Lógica**: Permite reutilizar funções e operações de negócios em diferentes partes da aplicação.
+- **Facilidade de Teste**: Lógica centralizada em services pode ser testada independentemente dos componentes da interface.
+
+### Implementação no Projeto
+
+Neste projeto, utilizamos a componentização para criar interfaces modulares e reutilizáveis. Cada seção do NeowNews, como os destaques, previsões do tempo, e lista de favoritos, é implementada como um componente separado.
+
+Os **services** são usados para gerenciar a comunicação com APIs externas, utilizando Axios para fazer chamadas HTTP de maneira eficiente. Isso ajuda a manter nossos componentes focados na interação com o usuário, enquanto a lógica de negócios permanece encapsulada nos services.
 
 ## 📷 Capturas de Tela
 
 ### Página Inicial
-![Página Inicial](https://via.placeholder.com/800x400)
+![image](https://github.com/user-attachments/assets/c1f7f45a-483c-4a22-8232-be831ac3432a)
 
-### Detalhes do Artigo
-![Detalhes do Artigo](https://via.placeholder.com/800x400)
-
-## 🙌 Contribuições
-
-Contribuições são bem-vindas! Sinta-se à vontade para abrir uma [issue](https://github.com/seu-usuario/neownews/issues) ou enviar um [pull request](https://github.com/seu-usuario/neownews/pulls).
-
-## 📄 Licença
-
-Este projeto está licenciado sob a Licença MIT. Veja o arquivo [LICENSE](https://github.com/seu-usuario/neownews/blob/main/LICENSE) para mais detalhes.
+### Link protótipo Figma
+- **FIGMA**: [UI Protótipo NeoNews.](https://www.figma.com/design/cUUtauqjTOIL6MFALl2fLm/Neo-News?node-id=0-1&t=7CuWH4KZRNax3WSN-0)
 
 ## 🤝 Contato
 
-Para mais informações, entre em contato em [seu-email@exemplo.com](mailto:seu-email@exemplo.com).
+Para mais informações, entre em contato em [eduardo_pk@live.com](mailto:eduardo_pk@live.com).
 
 ---
 
