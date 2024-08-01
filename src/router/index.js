@@ -3,6 +3,7 @@ import Home from '../views/Home.vue';
 import Favorites from '../views/Favorites.vue';
 
 const routes = [
+  { path: '/news-app', component: Home },
   { path: '/', component: Home },
   { path: '/mundo', component: Home },
   { path: '/politica', component: Home },
