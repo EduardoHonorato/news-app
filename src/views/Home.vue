@@ -14,9 +14,9 @@
     </div>
     <Modal :visible="isModalVisible" @close="closeModal">
       <div v-if="selectedArticle">
-        <img :src="selectedArticle.image || 'https://via.placeholder.com/150'" alt="Article Image" class="w-full object-cover rounded mb-4">
-        <h2 class="text-2xl font-bold mb-2">{{ selectedArticle.title }}</h2>
-        <p>{{ selectedArticle.content }}</p>
+        <img :src="selectedArticle?.image || 'https://via.placeholder.com/150'" alt="Article Image" class="w-full object-cover rounded mb-4">
+        <h2 class="text-2xl font-bold mb-2">{{ selectedArticle?.title }}</h2>
+        <p>{{ selectedArticle?.description }}</p>
         <button @click="addFavorite" class="mt-4 px-4 py-2 text-white rounded font-semibold" :class="{ 'bg-green-600': isFavorited, 'bg-blue-500': !isFavorited }">
           {{ isFavorited ? 'Favoritado ♥' : 'Favoritar' }}
         </button>

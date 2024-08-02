@@ -27,11 +27,6 @@
         </span>
       </div>
     </div>
-    <div class="mt-4 text-center">
-      <button class="text-color-600 font-bold">
-        Mais conteúdos recomendados
-      </button>
-    </div>
   </div>
 </template>
 

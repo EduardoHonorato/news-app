@@ -36,7 +36,7 @@
         </button>
         <!-- Desktop Menu -->
         <nav class="hidden md:flex space-x-4 md:space-x-8 text-sm md:text-lg font-bold">
-          <router-link to="/" class="hover:text-white text-white-500 font-bold">Notícias</router-link>
+          <router-link to="/news-app" class="hover:text-white text-white-500 font-bold">Notícias</router-link>
           <a href="#" class="hover:text-white font-medium">Missão</a>
           <a href="#" class="hover:text-white font-medium">Ameaças</a>
           <a href="#" class="hover:text-white font-medium">Anfitriões</a>
