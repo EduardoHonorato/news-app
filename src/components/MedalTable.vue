@@ -5,7 +5,7 @@
     <SkeletonMedalTable v-if="loading" />
     <table v-else class="w-full text-left table-auto mt-5">
       <thead>
-        <tr class="">
+        <tr>
           <th class="py-2">#</th>
           <th class="py-2">Países</th>
           <th class="py-2">🥇</th>
@@ -15,10 +15,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(country, index) in topCountries" :key="country.rank" class="">
+        <tr v-for="(country, index) in topCountries" :key="country.rank">
           <td class="py-2">{{ country.rank }}</td>
           <td class="py-2 flex items-center">
-            <img :src="getFlagUrl(convertCode(country.country.code))" alt="" class="h-4 w-6 mr-2">
+            <img :src="getFlagUrl(country.country.code)" alt="" class="h-4 w-6 mr-2">
             {{ country.country.name }}
           </td>
           <td class="py-2">{{ country.medals.gold }}</td>
@@ -34,7 +34,7 @@
         <tr v-if="brazil" :class="{ 'border-l-4 border-green-600': brazil.country.code === 'BRA' }">
           <td class="py-2">{{ brazil.rank }}</td>
           <td class="py-2 flex items-center">
-            <img :src="getFlagUrl(convertCode(brazil.country.code))" alt="" class="h-4 w-6 mr-2">
+            <img :src="getFlagUrl(brazil.country.code)" alt="" class="h-4 w-6 mr-2">
             {{ brazil.country.name }}
           </td>
           <td class="py-2">{{ brazil.medals.gold }}</td>
@@ -44,14 +44,11 @@
         </tr>
       </tbody>
     </table>
-    <div class="text-center mt-">
-      
-    </div>
-    <Modal :visible="showModal" @close="showModal = false">
+    <Modal :visible="showModal" @close="closeModal">
       <h2 class="text-xl font-bold mb-4">Quadro de medalhas completo</h2>
       <table class="w-full text-left table-auto">
         <thead>
-          <tr class="">
+          <tr>
             <th class="py-2">#</th>
             <th class="py-2">Países</th>
             <th class="py-2">🥇</th>
@@ -61,10 +58,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(country, index) in fullMedalData" :key="country.rank" class="">
+          <tr v-for="country in fullMedalData" :key="country.rank">
             <td class="py-2">{{ country.rank }}</td>
             <td class="py-2 flex items-center">
-              <img :src="getFlagUrl(convertCode(country.country.code))" alt="" class="h-4 w-6 mr-2">
+              <img :src="getFlagUrl(country.country.code)" alt="" class="h-4 w-6 mr-2">
               {{ country.country.name }}
             </td>
             <td class="py-2">{{ country.medals.gold }}</td>
@@ -78,13 +75,31 @@
   </div>
 </template>
 
-<script setup>
-import { ref, onMounted } from 'vue';
+<script lang="ts" setup>
+import { ref, onMounted, Ref } from 'vue';
 import Modal from './Modal.vue';
-import SkeletonMedalTable from './SkeletonMedalTable.vue'; // Import the custom skeleton component
+import SkeletonMedalTable from './SkeletonMedalTable.vue';
 import axios from 'axios';
 
-const countryCodeMap = {
+interface Country {
+  code: string;
+  name: string;
+}
+
+interface Medal {
+  gold: number;
+  silver: number;
+  bronze: number;
+  total: number;
+}
+
+interface MedalData {
+  rank: number;
+  country: Country;
+  medals: Medal;
+}
+
+const countryCodeMap: Record<string, string> = {
   JPN: 'jp',
   CHN: 'cn',
   AUS: 'au',
@@ -117,20 +132,20 @@ const countryCodeMap = {
   ESP: 'es'
 };
 
-const showModal = ref(false);
-const medalData = ref([]);
-const fullMedalData = ref([]);
-const topCountries = ref([]);
-const brazil = ref(null);
-const loading = ref(true);
+const showModal: Ref<boolean> = ref(false);
+const fullMedalData: Ref<MedalData[]> = ref([]);
+const topCountries: Ref<MedalData[]> = ref([]);
+const brazil: Ref<MedalData | null> = ref(null);
+const loading: Ref<boolean> = ref(true);
 
-const fetchMedalData = async () => {
+const fetchMedalData = async (): Promise<void> => {
   try {
     loading.value = true; 
     const response = await axios.get('https://api.olympics.kevle.xyz/medals/all');
-    fullMedalData.value = response.data.results;
-    topCountries.value = response.data.results.slice(0, 4);
-    brazil.value = response.data.results.find(country => country.country.code === 'BRA');
+    const results: MedalData[] = response.data.results;
+    fullMedalData.value = results;
+    topCountries.value = results.slice(0, 4);
+    brazil.value = results.find(country => country.country.code === 'BRA') || null;
   } catch (error) {
     console.error('Erro ao buscar dados das medalhas:', error);
   } finally {
@@ -138,12 +153,13 @@ const fetchMedalData = async () => {
   }
 };
 
-const getFlagUrl = (countryCode) => {
-  return `https://flagcdn.com/16x12/${countryCode.toLowerCase()}.png`;
+const getFlagUrl = (countryCode: string): string => {
+  const flagCode = countryCodeMap[countryCode] || countryCode.toLowerCase();
+  return `https://flagcdn.com/16x12/${flagCode}.png`;
 };
 
-const convertCode = (threeLetterCode) => {
-  return countryCodeMap[threeLetterCode] || threeLetterCode.toLowerCase();
+const closeModal = (): void => {
+  showModal.value = false;
 };
 
 onMounted(fetchMedalData);
