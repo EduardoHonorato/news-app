@@ -8,22 +8,22 @@
     <div
       v-else
       v-for="article in articles"
-      :key="article?.url"
+      :key="article.url"
       class="mb-4 flex border-b pb-4 cursor-pointer mt-5"
       @click="selectArticle(article)"
     >
       <img
-        :src="article?.image || 'https://picsum.photos/200/300'"
-        :alt="article?.title"
-        :title="article?.title"
+        :src="article.image || 'https://picsum.photos/200/300'"
+        :alt="article.title"
+        :title="article.title"
         class="w-24 h-24 object-cover rounded mr-4"
       />
       <div class="flex-grow">
-        <h3 class="font-bold text-color-600" :title="article?.title">
-          {{ article?.title ?? "Notícia sem título" }}
+        <h3 class="font-bold text-color-600" :title="article.title">
+          {{ article.title || "Notícia sem título" }}
         </h3>
-        <span class="description" :title="article?.title">
-          {{ article?.description ?? "Sem descrição disponível." }}
+        <span class="description" :title="article.title">
+          {{ article.description || "Sem descrição disponível." }}
         </span>
       </div>
     </div>
@@ -31,54 +31,37 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import { defineEmits } from 'vue';
+import { ref, onMounted, defineEmits } from 'vue';
 import SkeletonSideNews from './SkeletonSideNews.vue';
 import newsService from '../services/newsService';
 
 interface Article {
+  id: string;
   url: string;
-  urlToImage: string;
+  image: string;
   title: string;
   description: string;
 }
 
-const emit = defineEmits(['selectArticle']);
+const emit = defineEmits<{ (e: 'selectArticle', article: Article): void }>();
 const articles = ref<Article[]>([]);
-const loading = ref(true); 
+const loading = ref(true);
 
-const fetchArticles = async () => {
+const fetchArticles = async (): Promise<void> => {
+  loading.value = true;
   try {
-    loading.value = true;
-    const response = await newsService.getTopHeadlines('br', 'technology');
-    articles.value = response.data.news.slice(0, 5);
+    const news = await newsService.getTopHeadlines();
+    articles.value = news.slice(0, 5);
   } catch (error) {
     console.error('Erro ao buscar notícias no SideNews:', error);
   } finally {
-    loading.value = false; 
+    loading.value = false;
   }
 };
 
-const selectArticle = (article: Article) => {
+const selectArticle = (article: Article): void => {
   emit('selectArticle', article);
 };
 
 onMounted(fetchArticles);
 </script>
-
-<style scoped>
-.text-color-600 {
-  color: #1b1b96;
-}
-
-.description {
-  display: -webkit-box;
-  -webkit-line-clamp: 2; 
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  margin-top: 0.5rem; 
-  font-size: 0.875rem; 
-  color: #555;
-}
-</style>

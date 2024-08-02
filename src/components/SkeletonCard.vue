@@ -10,7 +10,6 @@
   </template>
   
   <script setup lang="ts">
-  // No script logic is needed for skeletons, just presentation
   </script>
   
   <style scoped>
@@ -19,7 +18,7 @@
   }
   
   .card-container {
-    height: 400px; /* Match the height of the actual card */
+    height: 400px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -27,7 +26,7 @@
   
   .skeleton-image {
     width: 100%;
-    height: 192px; /* Match the height of the article image */
+    height: 192px;
     background-color: #e0e0e0;
     border-radius: 8px;
   }

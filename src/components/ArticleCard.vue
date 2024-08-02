@@ -36,31 +36,3 @@ const selectArticle = (article: Article) => {
   emit('selectArticle', article);
 };
 </script>
-
-<style scoped>
-.card-container {
-  height: 460px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  overflow: hidden; 
-}
-
-.title {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 3; 
-  -webkit-box-orient: vertical;
-  white-space: normal;
-}
-
-.description {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 3; 
-  -webkit-box-orient: vertical;
-  white-space: normal;
-}
-</style>

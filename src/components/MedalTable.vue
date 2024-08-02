@@ -15,7 +15,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(country, index) in topCountries" :key="country.rank">
+        <tr v-for="country in topCountries" :key="country.rank">
           <td class="py-2">{{ country.rank }}</td>
           <td class="py-2 flex items-center">
             <img :src="getFlagUrl(country.country.code)" alt="" class="h-4 w-6 mr-2">
@@ -31,7 +31,7 @@
             <hr class="my-4">
           </td>
         </tr>
-        <tr v-if="brazil" :class="{ 'border-l-4 border-green-600': brazil.country.code === 'BRA' }">
+        <tr v-if="brazil" :class="{ 'border-l-4 border-green-600': brazil?.country.code === 'BRA' }">
           <td class="py-2">{{ brazil.rank }}</td>
           <td class="py-2 flex items-center">
             <img :src="getFlagUrl(brazil.country.code)" alt="" class="h-4 w-6 mr-2">
@@ -139,8 +139,8 @@ const brazil: Ref<MedalData | null> = ref(null);
 const loading: Ref<boolean> = ref(true);
 
 const fetchMedalData = async (): Promise<void> => {
+  loading.value = true; 
   try {
-    loading.value = true; 
     const response = await axios.get('https://api.olympics.kevle.xyz/medals/all');
     const results: MedalData[] = response.data.results;
     fullMedalData.value = results;
@@ -164,12 +164,3 @@ const closeModal = (): void => {
 
 onMounted(fetchMedalData);
 </script>
-
-<style scoped>
-.text-red-600 {
-  color: #1b1b96;
-}
-.border-green-600 {
-  border-color: #008000;
-}
-</style>

@@ -14,10 +14,18 @@
     </div>
     <Modal :visible="isModalVisible" @close="closeModal">
       <div v-if="selectedArticle">
-        <img :src="selectedArticle?.image || 'https://via.placeholder.com/150'" alt="Article Image" class="w-full object-cover rounded mb-4">
-        <h2 class="text-2xl font-bold mb-2">{{ selectedArticle?.title }}</h2>
-        <p>{{ selectedArticle?.description }}</p>
-        <button @click="addFavorite" class="mt-4 px-4 py-2 text-white rounded font-semibold" :class="{ 'bg-green-600': isFavorited, 'bg-blue-500': !isFavorited }">
+        <img
+          :src="selectedArticle.image || 'https://via.placeholder.com/150'"
+          alt="Article Image"
+          class="w-full object-cover rounded mb-4"
+        />
+        <h2 class="text-2xl font-bold mb-2">{{ selectedArticle.title }}</h2>
+        <p>{{ selectedArticle.description }}</p>
+        <button
+          @click="toggleFavorite"
+          class="mt-4 px-4 py-2 text-white rounded font-semibold"
+          :class="{ 'bg-green-600': isFavorited, 'bg-blue-500': !isFavorited }"
+        >
           {{ isFavorited ? 'Favoritado ♥' : 'Favoritar' }}
         </button>
       </div>
@@ -27,7 +35,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import Header from '../components/Header.vue';
 import Banner from '../components/Banner.vue';
 import ArticleList from '../components/ArticleList.vue';
@@ -41,30 +49,37 @@ interface Article {
   url: string;
   urlToImage: string;
   title: string;
+  description: string;
   content: string;
 }
 
 const selectedArticle = ref<Article | null>(null);
 const isModalVisible = ref(false);
-const isFavorited = ref(false);
 
-const favorites = ref(JSON.parse(localStorage.getItem('favorites') || '[]'));
+const favorites = ref<Article[]>(JSON.parse(localStorage.getItem('favorites') || '[]'));
 
-const openModal = (article: Article) => {
+const isFavorited = computed(() =>
+  favorites.value.some((fav) => fav.url === selectedArticle.value?.url)
+);
+
+const openModal = (article: Article): void => {
   selectedArticle.value = article;
-  isFavorited.value = favorites.value.some((fav: Article) => fav.url === article.url);
   isModalVisible.value = true;
 };
 
-const closeModal = () => {
+const closeModal = (): void => {
   isModalVisible.value = false;
 };
 
-const addFavorite = () => {
-  if (!favorites.value.some((fav: Article) => fav.url === selectedArticle.value!.url)) {
+const toggleFavorite = (): void => {
+  if (!selectedArticle.value) return;
+
+  if (isFavorited.value) {
+    favorites.value = favorites.value.filter((fav) => fav.url !== selectedArticle.value?.url);
+  } else {
     favorites.value.push(selectedArticle.value);
-    localStorage.setItem('favorites', JSON.stringify(favorites.value));
-    isFavorited.value = true;
   }
+
+  localStorage.setItem('favorites', JSON.stringify(favorites.value));
 };
 </script>

@@ -12,8 +12,11 @@ interface MedalData {
   bronze: number;
 }
 
+const CORS_PROXY = 'https://cors-anywhere.herokuapp.com/';
+const BASE_URL = 'https://api.olympics.kevle.xyz';
+
 const apiClient = axios.create({
-  baseURL: 'https://api.olympics.kevle.xyz',
+  baseURL: `${CORS_PROXY}${BASE_URL}`,
   headers: {
     'Content-Type': 'application/json',
   },

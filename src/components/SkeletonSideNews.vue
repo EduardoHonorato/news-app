@@ -9,31 +9,30 @@
   </template>
   
   <script setup lang="ts">
-  // No script logic needed for skeletons
   </script>
   
   <style scoped>
   .skeleton-image {
-    width: 96px; /* Match the width of the actual image */
-    height: 96px; /* Match the height of the actual image */
+    width: 96px; 
+    height: 96px; 
     background-color: #e0e0e0;
     border-radius: 8px;
   }
   
   .skeleton-text {
     width: 80%;
-    height: 16px; /* Standard text height */
+    height: 16px; 
     background-color: #e0e0e0;
     border-radius: 4px;
   }
   
   .title {
-    height: 20px; /* Slightly taller for the title */
+    height: 20px; 
   }
   
   .description {
-    height: 16px; /* Match the description text height */
-    width: 100%; /* Full width for description */
+    height: 16px; 
+    width: 100%;
   }
   
   .animate-pulse {

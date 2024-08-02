@@ -34,7 +34,6 @@
           </p>
         </div>
       </div>
-    
     </div>
     <div v-else>
       <p>Carregando dados do tempo...</p>
@@ -57,6 +56,10 @@ interface WeatherData {
     icon: string;
     description: string;
   }[];
+  rain?: {
+    '1h'?: number;
+    '3h'?: number;
+  };
 }
 
 const weatherData = ref<WeatherData | null>(null);
@@ -65,23 +68,34 @@ const morningIconUrl = ref<string>('');
 const afternoonIconUrl = ref<string>('');
 const nightIconUrl = ref<string>('');
 
-const fetchWeather = async (lat: number, lon: number) => {
+const fetchWeather = async (lat: number, lon: number): Promise<void> => {
   try {
     const data = await weatherService.getWeatherByCoordinates(lat, lon);
 
     weatherData.value = data;
     
-    morningIconUrl.value = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
-    afternoonIconUrl.value = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
-    nightIconUrl.value = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+    morningIconUrl.value = getWeatherIconUrl(data.weather[0].icon);
+    afternoonIconUrl.value = getWeatherIconUrl(data.weather[0].icon);
+    nightIconUrl.value = getWeatherIconUrl(data.weather[0].icon);
 
-    rainProbability.value = data.rain ? (data.rain['1h'] || data.rain['3h']) * 10 : 0;
+    rainProbability.value = calculateRainProbability(data);
   } catch (error) {
     console.error('Erro ao buscar dados do tempo:', error);
   }
 };
 
-const getLocation = () => {
+const getWeatherIconUrl = (iconCode: string): string => {
+  return `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
+};
+
+const calculateRainProbability = (data: WeatherData): number => {
+  if (data.rain) {
+    return (data.rain['1h'] || data.rain['3h'] || 0) * 10;
+  }
+  return 0;
+};
+
+const getLocation = (): void => {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -98,9 +112,3 @@ const getLocation = () => {
 
 onMounted(getLocation);
 </script>
-
-<style scoped>
-.text-red-600 {
-  color: #1b1b96;
-}
-</style>

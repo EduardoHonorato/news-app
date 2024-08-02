@@ -1,7 +1,74 @@
 body {
-    /* padding-top: 160px; */
     background-color: #f9f9f9;
   }
   .bg-neoway{
     background: #e96024;
+  }
+
+  .card-container {
+    height: 460px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden; 
+  }
+  
+  .title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; 
+    -webkit-box-orient: vertical;
+    white-space: normal;
+  }
+  
+  .description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; 
+    -webkit-box-orient: vertical;
+    white-space: normal;
+  }
+  .card-container {
+    height: 460px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden; 
+  }
+  
+  .title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; 
+    -webkit-box-orient: vertical;
+    white-space: normal;
+  }
+  
+  .description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; 
+    -webkit-box-orient: vertical;
+    white-space: normal;
+  }
+  .border-green-600 {
+    border-color: #008000;
+  }
+  .text-color-600 {
+    color: #1b1b96;
+  }
+  
+  .description {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; 
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 0.5rem; 
+    font-size: 0.875rem; 
+    color: #555;
   }

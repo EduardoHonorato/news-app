@@ -30,7 +30,6 @@
   </template>
   
   <script setup>
-  // No additional logic needed for skeletons
   </script>
   
   <style scoped>
